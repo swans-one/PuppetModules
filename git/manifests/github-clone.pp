@@ -38,18 +38,26 @@ define git::github-clone(
   $group = "root",
   ) {
 
+  include git
+  Class['git'] -> Exec["clone-${user}-${project}"]
+  
   file {"${user}-${project}-${directory}":
     path => $directory,
     ensure => directory,
     owner => $owner,
   }
 
-  notify {"git clone https://github.com/${user}/${project}": }
+  file {"${directory}/${name}":
+    ensure => absent,
+  }
   
   exec {"clone-${user}-${project}":
     cwd => $directory,
     path => ['/usr/bin', '/usr/local/bin'],
     creates => "${directory}/${project}/.git",
-    command => "git clone https://github.com/${user}/${project} ${name}",
+    command => "git clone https://github.com/${user}/${project}.git ${name}",
   }
+
+  File["${user}-${project}-${directory}"] -> File["${directory}/${name}"]
+  File["${directory}/${name}"] -> Exec["clone-${user}-${project}"]
 }

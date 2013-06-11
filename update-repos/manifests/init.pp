@@ -26,17 +26,20 @@
 class update-repos ($distro = undef) {
   if $distro == undef {
     # On linux systems, `$operatingsystem` returns the flavor
-    $distro = $operatingsystem
+    $distrobution = $operatingsystem
   }
-  case $distro {
+  else {
+    $distrobution = $distro
+  }
+  case $distrobution {
     debian: {
-      class{'update-repos::debian'}
+      class {'update-repos::debian': }
     }
     ubuntu: {
-      class{'update-repos::ubuntu'}
+      class {'update-repos::ubuntu': }
     }
     default: {
-      notify{"Error: No update routine for the operating system/distribution ${distro}": }
+      fail("Error: No update routine for the operating system/distribution ${distro}")
     }
   }
 }
