@@ -1,23 +1,27 @@
 #
-# Definition: git::github-clone
+# = Definition: git::github-clone
 #
-# This class clones a project from github
+# This class clones a project from github.
 #
-# Parameters:
+# == Parameters:
+#
 # - The $user who's project to clone (github username)
 # - The $project to clone
 # - The $directory to clone it into
 # - The $owner of the project directory
 # - The $group of the project directory
 #
-# Actions:
+# == Actions:
+#
 # - Creates a git repository that is a clone of the specified
 #   project
 #
-# Requires:
+# == Requires:
+#
 # - The git class
 #
-# Sample Usage:
+# == Sample Usage:
+#
 #   git::github-clone {'julia':
 #     user      => 'JuliaLang',
 #     directory => '/opt',
