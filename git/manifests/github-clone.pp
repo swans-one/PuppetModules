@@ -8,6 +8,7 @@
 # - The $user who's project to clone (github username)
 # - The $project to clone
 # - The $directory to clone it into
+# - The $name of the directory to put the project within ${directory}
 # - The $owner of the project directory
 # - The $group of the project directory
 #
@@ -32,6 +33,7 @@ define git::github-clone(
   $user,
   $project = $title,
   $directory = '/opt',
+  $name = '',
   $owner = "root",
   $group = "root",
   ) {
@@ -48,6 +50,6 @@ define git::github-clone(
     cwd => $directory,
     path => ['/usr/bin', '/usr/local/bin'],
     creates => "${directory}/${project}/.git",
-    command => "git clone https://github.com/${user}/${project}",
+    command => "git clone https://github.com/${user}/${project} ${name}",
   }
 }
