@@ -46,15 +46,22 @@ class emacs ($user, $project, $owner = 'root', $group = undef, $packagename = "e
     }
   }
   git::github-clone {"emacs-config-${emacsowner}":
-    project => $project,
-    user => $user,
+    project   => $project,
+    user      => $user,
     directory => $homedir,
-    name => ".emacs.d",
-    owner => $emacsowner,
-    group => $emacsgroup,
+    name      => ".emacs.d",
+    owner     => $emacsowner,
+    group     => $emacsgroup,
   }
   package {"emacs":
-    name => $packagename,
+    name   => $packagename,
     ensure => latest,
   }
+  exec {'change-.emacs.d-ownership':
+    path => ['/bin','/sbin','/usr/bin','/usr/sbin'],
+    cwd => $homedir,
+    command => "chown -R ${emacsowner} .emacs.d",
+  }
+
+  Git::Github-Clone["emacs-config-${emacsowner}"] -> Exec['change-.emacs.d-ownership']
 }
