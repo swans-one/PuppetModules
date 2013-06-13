@@ -1,7 +1,21 @@
 #
-# We have a dummy class.
+# = Class: git
 #
-# This module primarily defines a number of defined types.
+# Installs git. Also provides the namespace for other git related
+# actions. All classes/definitions under this namespace should include
+# this class.
+#
+# == Parameters:
+#
+# None.
+#
+# == Requires:
+#
+# Nothing.
+#
+# == Sample Usage:
+#
+#   include git
 #
 class git {
   package {'git':
