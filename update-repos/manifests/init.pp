@@ -34,9 +34,21 @@ class update-repos ($distro = undef) {
   case $distrobution {
     debian: {
       class {'update-repos::debian': }
+      notify {"Updating repositories for ${distrobution}":
+        before => Class['update-repos::debian'],
+      }
+      notify {"Done updating repositories for ${distrobution}":
+        require => Class['update-repos::debian'],
+      }
     }
     ubuntu: {
       class {'update-repos::ubuntu': }
+      notify {"Updating repositories for ${distrobution}":
+        before => Class['update-repos::ubuntu'],
+      }
+      notify {"Done updating repositories for ${distrobution}":
+        require => Class['update-repos::ubuntu'],
+      }
     }
     default: {
       fail("Error: No update routine for the operating system/distribution ${distro}")
