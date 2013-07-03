@@ -2,6 +2,13 @@
 Puppet Modules for Vagrant
 ========================================
 
+The following modules are simple. I'm using these modules to provision
+my personal vagrant dev environments. For this reason I make no
+guarantees that this will work on anyone else's machine. That being
+said, all of the code in this repository is released under the
+[WTFPL](http://www.wtfpl.net/).
+
+
 The `git` module
 ----------------------------------------
 
